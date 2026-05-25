@@ -3,66 +3,48 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Infra Automation — Learning Notes</title>
+  <title>Infrastructure Automation</title>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
   <style>
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
     :root{
-      --bg:#f8f7f4;
-      --ink:#1a1a18;
-      --mid:#6b6b63;
-      --rule:#e0ddd6;
-      --white:#ffffff;
-      --blue:#1d4ed8;
-      --blue-bg:#eff6ff;
-      --coral:#c2410c;
-      --coral-bg:#fff7ed;
-      --teal:#0f766e;
-      --teal-bg:#f0fdfa;
-      --purple:#6d28d9;
-      --purple-bg:#f5f3ff;
+      --bg:#f8f7f4;--ink:#1a1a18;--mid:#6b6b63;--rule:#e0ddd6;--white:#ffffff;
+      --blue:#1d4ed8;--blue-bg:#eff6ff;--coral:#c2410c;--coral-bg:#fff7ed;
+      --teal:#0f766e;--teal-bg:#f0fdfa;--purple:#6d28d9;--purple-bg:#f5f3ff;
     }
     body{font-family:'IBM Plex Sans',sans-serif;background:var(--bg);color:var(--ink);font-size:15px;line-height:1.6}
-    a{color:var(--blue);text-decoration:none}
-
-    /* LAYOUT */
     .wrap{max-width:760px;margin:0 auto;padding:40px 24px 60px}
 
-    /* HEADER */
     .header{border-bottom:1px solid var(--rule);padding-bottom:20px;margin-bottom:32px}
-    .header h1{font-size:1.25rem;font-weight:500;letter-spacing:-0.01em;color:var(--ink)}
+    .header h1{font-size:1.25rem;font-weight:500;letter-spacing:-0.01em}
     .header p{font-size:0.85rem;color:var(--mid);margin-top:4px}
 
-    /* SECTION */
     .section{margin-bottom:36px}
     .section-title{font-family:'IBM Plex Mono',monospace;font-size:0.72rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--mid);margin-bottom:14px;display:flex;align-items:center;gap:8px}
     .section-title::after{content:'';flex:1;height:1px;background:var(--rule)}
 
-    /* WHY CARDS */
     .why-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
     .why-card{background:var(--white);border:1px solid var(--rule);border-radius:8px;padding:16px 18px}
+    .why-card.tf{border-top:2px solid var(--blue)}
+    .why-card.ans{border-top:2px solid var(--coral)}
+    .why-card.ng{border-top:2px solid var(--teal)}
+    .why-card.ci{border-top:2px solid var(--purple)}
     .why-card .tool{font-family:'IBM Plex Mono',monospace;font-size:0.75rem;font-weight:500;margin-bottom:6px}
     .why-card.tf .tool{color:var(--blue)}
     .why-card.ans .tool{color:var(--coral)}
     .why-card.ng .tool{color:var(--teal)}
     .why-card.ci .tool{color:var(--purple)}
-    .why-card h3{font-size:0.88rem;font-weight:500;margin-bottom:6px;color:var(--ink)}
+    .why-card h3{font-size:0.88rem;font-weight:500;margin-bottom:6px}
     .why-card p{font-size:0.82rem;color:var(--mid);line-height:1.65}
     .why-card .without{font-size:0.78rem;background:var(--bg);border-left:2px solid var(--rule);padding:6px 10px;border-radius:0 4px 4px 0;margin-top:10px;color:var(--mid);font-style:italic}
-    .why-card.tf{border-top:2px solid var(--blue)}
-    .why-card.ans{border-top:2px solid var(--coral)}
-    .why-card.ng{border-top:2px solid var(--teal)}
-    .why-card.ci{border-top:2px solid var(--purple)}
 
-    /* DIAGRAM */
     .diagram-wrap{background:var(--white);border:1px solid var(--rule);border-radius:8px;padding:20px}
     svg text{font-family:'IBM Plex Sans',sans-serif}
 
-    /* HOW THEY CONNECT prose */
     .connect-list{list-style:none;display:flex;flex-direction:column;gap:8px}
-    .connect-list li{font-size:0.85rem;color:var(--ink);display:flex;gap:10px;align-items:baseline}
+    .connect-list li{font-size:0.85rem;display:flex;gap:10px;align-items:baseline}
     .connect-list li .num{font-family:'IBM Plex Mono',monospace;font-size:0.72rem;color:var(--mid);flex-shrink:0;width:20px}
-    .connect-list li code{font-family:'IBM Plex Mono',monospace;font-size:0.8rem;background:var(--bg);border:1px solid var(--rule);padding:1px 5px;border-radius:3px;color:var(--ink)}
+    .connect-list li code{font-family:'IBM Plex Mono',monospace;font-size:0.8rem;background:var(--bg);border:1px solid var(--rule);padding:1px 5px;border-radius:3px}
 
     @media(max-width:560px){.why-grid{grid-template-columns:1fr}}
   </style>
@@ -70,49 +52,46 @@
 <body>
 <div class="wrap">
 
-  <!-- HEADER -->
   <div class="header">
-    <h1>Infra Automation — Learning Notes</h1>
-    <p>Why these tools exist and how they fit together</p>
+    <h1>Infrastructure Automation</h1>
+    <p>Why these tools exist — and what breaks without them</p>
   </div>
 
-  <!-- WHY SECTION -->
   <div class="section">
     <div class="section-title">Why each tool</div>
     <div class="why-grid">
 
       <div class="why-card tf">
         <div class="tool">Terraform</div>
-        <h3>Create servers with code</h3>
-        <p>Instead of clicking through DigitalOcean's dashboard every time, you write a <code style="font-family:monospace;font-size:0.8em;background:#eff6ff;padding:1px 4px;border-radius:3px">.tf</code> file. Run <code style="font-family:monospace;font-size:0.8em;background:#eff6ff;padding:1px 4px;border-radius:3px">apply</code>, server exists. Run <code style="font-family:monospace;font-size:0.8em;background:#eff6ff;padding:1px 4px;border-radius:3px">destroy</code>, it's gone. Reproducible every time.</p>
-        <div class="without">Without it: manually clicking dashboards, easy to forget a step, impossible to version control.</div>
+        <h3>Define servers as code</h3>
+        <p>Write a <code style="font-family:monospace;font-size:0.8em;background:#eff6ff;padding:1px 4px;border-radius:3px">.tf</code> file, run <code style="font-family:monospace;font-size:0.8em;background:#eff6ff;padding:1px 4px;border-radius:3px">apply</code> — server exists. Run <code style="font-family:monospace;font-size:0.8em;background:#eff6ff;padding:1px 4px;border-radius:3px">destroy</code> — it's gone. Every environment is reproducible, version-controlled, and never relies on memory.</p>
+        <div class="without">Without it: clicking dashboards by hand, drifting configs, no audit trail, can't rebuild reliably.</div>
       </div>
 
       <div class="why-card ans">
         <div class="tool">Ansible</div>
-        <h3>Configure servers without SSH-ing in</h3>
-        <p>Once the server exists, Ansible connects over SSH and runs your playbook — installs Nginx, sets configs, starts services. Run it 10 times, same result (idempotent).</p>
-        <div class="without">Without it: SSH in manually, run commands, pray you didn't miss anything, can't repeat it reliably.</div>
+        <h3>Configure without touching the server</h3>
+        <p>Connects over SSH and runs a playbook — installs packages, writes configs, starts services. Idempotent: run it once or a hundred times, outcome is always the same.</p>
+        <div class="without">Without it: SSH in manually every time, miss a step, can't reproduce the exact setup later.</div>
       </div>
 
       <div class="why-card ng">
         <div class="tool">Nginx</div>
-        <h3>Serve content to the internet</h3>
-        <p>The actual web server. Handles incoming HTTP requests, serves files, or forwards traffic to an app. Ansible installs and configures it automatically — you just write the server block.</p>
-        <div class="without">Without it: nothing serves your site. It's the final piece that makes the server reachable.</div>
+        <h3>The thing that actually serves traffic</h3>
+        <p>Handles HTTP requests, serves static files, or proxies to an app. Ansible installs and configures it — you just define what to serve and where.</p>
+        <div class="without">Without it: the server exists but nothing is reachable. Nginx is what makes it a web server.</div>
       </div>
 
       <div class="why-card ci">
-        <div class="tool">GitHub Actions (CI/CD)</div>
-        <h3>Automate the whole pipeline</h3>
-        <p>A workflow file that watches your repo. On every push, it runs Terraform + Ansible automatically. No manual steps — push code, server updates itself.</p>
-        <div class="without">Without it: you run Terraform and Ansible by hand every time you make a change.</div>
+        <div class="tool">GitHub Actions</div>
+        <h3>Remove every manual step</h3>
+        <p>A workflow file in your repo that runs Terraform + Ansible on every push. The entire infra lifecycle — provision, configure, deploy — happens automatically.</p>
+        <div class="without">Without it: automation exists but you still trigger it by hand. CI/CD closes the loop.</div>
       </div>
 
     </div>
   </div>
 
-  <!-- DIAGRAM -->
   <div class="section">
     <div class="section-title">Architecture</div>
     <div class="diagram-wrap">
@@ -122,40 +101,23 @@
             <path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
           </marker>
         </defs>
-
-        <!-- git push -->
         <rect x="260" y="14" width="180" height="42" rx="6" fill="#f8f7f4" stroke="#c0bdb4" stroke-width="1"/>
         <text x="350" y="31" text-anchor="middle" font-size="12" font-weight="500" fill="#1a1a18">git push</text>
         <text x="350" y="47" text-anchor="middle" font-size="11" fill="#6b6b63">your local machine</text>
-
-        <!-- arrow down -->
         <line x1="350" y1="56" x2="350" y2="88" stroke="#c0bdb4" stroke-width="1" marker-end="url(#arr)"/>
-
-        <!-- GitHub Actions -->
         <rect x="220" y="88" width="260" height="42" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1"/>
         <text x="350" y="105" text-anchor="middle" font-size="12" font-weight="500" fill="#4c1d95">GitHub Actions</text>
         <text x="350" y="121" text-anchor="middle" font-size="11" fill="#6d28d9">CI/CD — runs on every push</text>
-
-        <!-- arrow left -->
         <path d="M290 130 L180 175" fill="none" stroke="#c0bdb4" stroke-width="1" marker-end="url(#arr)"/>
-        <!-- arrow right -->
         <path d="M410 130 L520 175" fill="none" stroke="#c0bdb4" stroke-width="1" marker-end="url(#arr)"/>
-
-        <!-- Terraform -->
         <rect x="70" y="175" width="220" height="42" rx="6" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1"/>
         <text x="180" y="192" text-anchor="middle" font-size="12" font-weight="500" fill="#1e3a8a">Terraform</text>
         <text x="180" y="208" text-anchor="middle" font-size="11" fill="#1d4ed8">Provision Droplet</text>
-
-        <!-- Ansible -->
         <rect x="410" y="175" width="220" height="42" rx="6" fill="#fff7ed" stroke="#c2410c" stroke-width="1"/>
         <text x="520" y="192" text-anchor="middle" font-size="12" font-weight="500" fill="#7c2d12">Ansible</text>
         <text x="520" y="208" text-anchor="middle" font-size="11" fill="#c2410c">Configure + install Nginx</text>
-
-        <!-- arrows to server -->
         <path d="M180 217 L300 258" fill="none" stroke="#c0bdb4" stroke-width="1" marker-end="url(#arr)"/>
         <path d="M520 217 L400 258" fill="none" stroke="#c0bdb4" stroke-width="1" marker-end="url(#arr)"/>
-
-        <!-- Server -->
         <rect x="210" y="258" width="280" height="42" rx="6" fill="#f0fdfa" stroke="#0f766e" stroke-width="1"/>
         <text x="350" y="275" text-anchor="middle" font-size="12" font-weight="500" fill="#134e4a">DigitalOcean Droplet</text>
         <text x="350" y="291" text-anchor="middle" font-size="11" fill="#0f766e">Ubuntu · Nginx · blr1 · live</text>
@@ -163,15 +125,14 @@
     </div>
   </div>
 
-  <!-- HOW THEY CONNECT -->
   <div class="section">
-    <div class="section-title">What actually happens</div>
+    <div class="section-title">What happens on every push</div>
     <ol class="connect-list">
-      <li><span class="num">1.</span><span>You run <code>git push</code> — code goes to GitHub</span></li>
-      <li><span class="num">2.</span><span>GitHub Actions sees the push, starts the workflow</span></li>
-      <li><span class="num">3.</span><span>Terraform runs <code>apply</code> — creates the server on DigitalOcean, outputs the IP</span></li>
-      <li><span class="num">4.</span><span>Ansible takes that IP, SSHes in, runs the playbook — installs Nginx, copies config, starts it</span></li>
-      <li><span class="num">5.</span><span>Server is live. Nginx is serving. No manual steps.</span></li>
+      <li><span class="num">1.</span><span><code>git push</code> — code lands on GitHub</span></li>
+      <li><span class="num">2.</span><span>GitHub Actions triggers the workflow automatically</span></li>
+      <li><span class="num">3.</span><span>Terraform provisions the Droplet, outputs its IP</span></li>
+      <li><span class="num">4.</span><span>Ansible SSHes into that IP, installs Nginx, applies config</span></li>
+      <li><span class="num">5.</span><span>Server is live — zero manual steps</span></li>
     </ol>
   </div>
 
