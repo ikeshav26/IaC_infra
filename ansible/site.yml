@@ -14,7 +14,7 @@
           - git
         state: present
 
-    - name: Start nginx
+    - name: Ensure nginx is running
       service:
         name: nginx
         state: started
@@ -25,9 +25,29 @@
         repo: "https://github.com/ikeshav26/IaC_infra.git"
         dest: /var/www/app
         force: yes
+        version: main
 
     - name: Deploy static file to nginx root
       copy:
         src: /var/www/app/static/index.html
         dest: /var/www/html/index.html
         remote_src: yes
+
+    - name: Install certbot packages
+      apt:
+        name:
+          - certbot
+          - python3-certbot-nginx
+        state: present
+
+    - name: Check if SSL already exists
+      stat:
+        path: /etc/letsencrypt/live/infra.ikeshav.in/fullchain.pem
+      register: ssl_cert
+
+    - name: Run certbot (only if SSL not exists)
+      command: >
+        certbot --nginx -d {{ domain_name }}
+        --non-interactive --agree-tos
+        -m {{ certbot_email }}
+      when: not ssl_cert.stat.exists
