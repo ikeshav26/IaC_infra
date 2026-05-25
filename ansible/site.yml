@@ -1,0 +1,33 @@
+- name: Web server automation
+  hosts: web
+  become: true
+
+  tasks:
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+
+    - name: Install required packages
+      apt:
+        name:
+          - nginx
+          - git
+        state: present
+
+    - name: Start nginx
+      service:
+        name: nginx
+        state: started
+        enabled: yes
+
+    - name: Clone repository
+      git:
+        repo: "https://github.com/ikeshav26/IaC_infra.git"
+        dest: /var/www/app
+        force: yes
+
+    - name: Deploy static file to nginx root
+      copy:
+        src: /var/www/app/static/index.html
+        dest: /var/www/html/index.html
+        remote_src: yes

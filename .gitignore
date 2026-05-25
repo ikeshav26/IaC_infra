@@ -1,0 +1,18 @@
+# Terraform core files
+*.tfstate
+*.tfstate.*
+.terraform/
+
+# Terraform lock file (optional but recommended to keep in repo in real projects)
+# .terraform.lock.hcl
+
+# Crash logs
+crash.log
+
+# Local variables (VERY IMPORTANT)
+terraform.tfvars
+terraform.tfvars.json
+
+# CLI config
+.terraformrc
+terraform.rc
