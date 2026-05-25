@@ -27,5 +27,5 @@ jobs:
 
       - name: Run Ansible playbook
         run: |
-          ansible-playbook -i inventory site.yml \
+          ansible-playbook -i ansible/inventory ansible/site.yml \
           --extra-vars "domain_name=${{ secrets.DOMAIN_NAME }} certbot_email=${{ secrets.CERTBOT_EMAIL }}"
