@@ -1,4 +1,4 @@
-# Infra Automation Learning Project
+# Infra Automation
 
 Practicing infrastructure automation using Terraform, Ansible, Nginx, and GitHub Actions on DigitalOcean.
 
